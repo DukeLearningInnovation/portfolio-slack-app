@@ -1,0 +1,17 @@
+FROM python:3.6-jessie
+RUN pip install awscli --upgrade --user &&\
+    which python
+ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+ENV AWS_ACCESS_KEY_SECRET=${AWS_ACCESS_KEY_SECRET}
+
+FROM node:6
+
+
+ENV GITHUB_API_KEY=${GITHUB_API_KEY}
+ENV SLACK_ACCESS_TOKEN=${SLACK_ACCESS_TOKEN}
+ENV SLACK_VERIFICATION_TOKEN=${SLACK_VERIFICATION_TOKEN}
+
+RUN npm install -g serverless
+
+RUN serverless config credentials --provider aws --key AWS_ACCESS_KEY_ID --secret AWS_ACCESS_KEY_SECRET
+EXPOSE 8888
