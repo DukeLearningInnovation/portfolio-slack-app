@@ -3,11 +3,10 @@ services:
   node:
     build: .
     user: "node"
-    working_dir: /home/node/app
-    environment:
-      - NODE_ENV=production
+    env_file: .env
+    working_dir: /app
     volumes:
-      - ./:/home/node/app
+      - ./:/app
     ports:
       - 8888:8888
-    command: "serverless deploy -v"
+    
